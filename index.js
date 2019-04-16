@@ -4,6 +4,7 @@ const package = require('./package.json');
 const defaults = {
     actions: ['find', 'populate', /^.*\/(find|populate)$/],
     silentError: false,
+    header: false,
 };
 
 const isRegExp = (value) => {
@@ -110,20 +111,27 @@ const generate = (options = {}) => {
 
 
         var origJson = res.json;
-        res.json = function(val) {
-            return getCount().then(function(count) {
-                if (Array.isArray(val)) {
-                    return origJson.call(res, {
-                        totalCount: count,
-                        results: val,
-                    }); 
-                } else {
-                    return origJson.call(res, val);
-                }
-            });
-        };
+        if (options.header) {
+            getCount().then(count => {
+                res.set('X-Total-Count', count);
+                next();
+            })
+        } else {
+            res.json = function(val) {
+                return getCount().then(function(count) {
+                    if (Array.isArray(val)) {
+                        return origJson.call(res, {
+                            totalCount: count,
+                            results: val,
+                        }); 
+                    } else {
+                        return origJson.call(res, val);
+                    }
+                });
+            };
+            next();
+        }
 
-        next();
     };
 
     middleware.generate = generate;
