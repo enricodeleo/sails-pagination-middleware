@@ -1,21 +1,18 @@
 {
-  "name": "sails-pagination-middleware",
-  "version": "0.0.3",
-  "description": "Return total count in a transformed JSON request when using built-in sails limit & sort parameters",
+  "name": "sails-pagination-middleware-header",
+  "version": "1.0.0",
+  "description": "Return total count in a response header when using built-in sails limit & sort parameters",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xtrinch/sails-pagination-middleware.git"
+    "url": "git+https://github.com:enricodeleo/sails-pagination-middleware-header.git"
   },
-  "author": "mojca.rojko@gmail.com",
+  "author": "Enrico Deleo <hello@enricodeleo.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/xtrinch/sails-pagination-middleware/issues"
+    "url": "https://github.com/enricodeleo/sails-pagination-middleware-header/issues"
   },
-  "homepage": "https://github.com/xtrinch/sails-pagination-middleware#readme",
+  "homepage": "https://github.com/enricodeleo/sails-pagination-middleware-header#readme",
   "keywords": [
     "sails",
     "paginate",

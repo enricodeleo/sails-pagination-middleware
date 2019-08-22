@@ -1,32 +1,14 @@
-[![npm version](https://badge.fury.io/js/sails-pagination-middleware.svg)](https://badge.fury.io/js/sails-pagination-middleware)
-[![npm](https://img.shields.io/npm/dt/sails-pagination-middleware.svg)]()
-
-# sails-pagination-middleware
+# sails-pagination-middleware-header
 
 ## About
 
-Middleware for sails.js for finding the total count by criteria, via a Django rest framework inspired transformed request. 
+Middleware for sails.js for finding the total count by criteria and injecting it among headers. 
 
-Criteria pagination / filtering is built in to Sails, with keywords `limit`, `skip`, `where`. This package only adds a totalCount field to aid with building page indicators. You could define your page size in your frontend application with the keyword `limit` and just adjust `skip` accordingly. Meaning you could implement all sorts of different pagination indicators with this system.
-
-Example of the transformed request to `/api/todos?skip=10&limit=10&where={"title":{"contains":"test"}}`:
-
-    {
-        "results": [{
-            /* results here */
-        }],
-        "totalCount": 80
-    }
-
-Package follows the Sails initiative 'convention over configuration', so installing the middleware assumes, you would like to transform requests at all index endpoints. See section advanced usage for other options.
-
-## Use case example
-
-Check out an use case example over at [vue-sails-todo](https://github.com/xtrinch/vue-sails-todo).
+Criteria pagination / filtering is built in to Sails, with keywords `limit`, `skip`, `where`. This package only adds a X-Total-Count header to aid with building page indicators. You could define your page size in your frontend application with the keyword `limit` and just adjust `skip` accordingly. Meaning you could implement all sorts of different pagination indicators with this system.
 
 ## Basic Usage
 
-    npm install --save sails-pagination-middleware
+    npm install --save sails-pagination-middleware-header
 
 Then in your `config/http.js`, add `paginate` to first place in array:
 
@@ -67,3 +49,7 @@ There are options that you can change, just call the `generate()` function
             // if the .count() calls fails, to throw an error or not
             silentError: false // default
         }),
+
+## Credits
+
+This package is a fork of the beautiful [sails-pagination-middleware](https://github.com/xtrinch/sails-pagination-middleware).

@@ -76,7 +76,7 @@ const generate = (options = {}) => {
             let limit = req.param('limit') || criteria.limit || (populates[queryOptions.alias] || {}).limit;
             let skip = req.param('skip') || criteria.skip || (populates[queryOptions.alias] || {}).skip;
             let sort = req.param('sort') || criteria.sort || (populates[queryOptions.alias] || {}).sort;
-            
+
             // sails will throw an error if I don't do this
             delete criteria.limit;
             delete criteria.skip;
@@ -111,27 +111,12 @@ const generate = (options = {}) => {
 
 
         var origJson = res.json;
-        if (options.header) {
-            getCount().then(count => {
-                res.set('X-Total-Count', count);
-                next();
-            })
-        } else {
-            res.json = function(val) {
-                return getCount().then(function(count) {
-                    if(req.options && !req.options.model) return origJson.call(res, val);
-                    if (Array.isArray(val)) {
-                        return origJson.call(res, {
-                            totalCount: count,
-                            results: val,
-                        }); 
-                    } else {
-                        return origJson.call(res, val);
-                    }
-                });
-            };
-            next();
-        }
+        res.json = function(val) {
+            return getCount().then(function(count) {
+              res.set('X-Total-Count', count);
+              return origJson.call(res, val);
+            });
+        };
 
     };
 
