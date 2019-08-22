@@ -4,6 +4,7 @@ const package = require('./package.json');
 const defaults = {
     actions: ['find', 'populate', /^.*\/(find|populate)$/],
     silentError: false,
+    header: false,
 };
 
 const isRegExp = (value) => {
@@ -117,7 +118,6 @@ const generate = (options = {}) => {
             });
         };
 
-        next();
     };
 
     middleware.generate = generate;
