@@ -112,6 +112,7 @@ const generate = (options = {}) => {
         var origJson = res.json;
         res.json = function(val) {
             return getCount().then(function(count) {
+                if(req.options && !req.options.model) return origJson.call(res, val);
                 if (Array.isArray(val)) {
                     return origJson.call(res, {
                         totalCount: count,
